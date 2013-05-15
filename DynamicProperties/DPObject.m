@@ -35,39 +35,49 @@
             for (i = 0; i < outCount; i++) {
                 objc_property_t property = properties[i];
                 
-                NSString *propertyName = [NSString stringWithUTF8String:property_getName(property)];
-                
-                // Getter
-                char *getterName = property_copyAttributeValue(property, "G");
-                if (getterName) {
-                    [propertyGetters setObject:propertyName forKey:[NSString stringWithUTF8String:getterName]];
-                    free(getterName);
-                } else {
-                    [propertyGetters setObject:propertyName forKey:propertyName];
-                }
-                
-                // Setter
-                char *readonly = property_copyAttributeValue(property, "R");
-                if (readonly) {
-                    free(readonly);
-                } else {
-                    char *setterName = property_copyAttributeValue(property, "S");
-                    if (setterName) {
-                        [propertySetters setObject:propertyName forKey:[NSString stringWithUTF8String:setterName]];
-                        free(setterName);
+                // Check if the property is dynamic (@dynamic).
+                char *dynamic = property_copyAttributeValue(property, "D");
+                if (dynamic) {
+                    free(dynamic);
+                    
+                    // Get the name of the property
+                    NSString *propertyName = [NSString stringWithUTF8String:property_getName(property)];
+                    
+                    // Get the selector for the getter
+                    char *getterName = property_copyAttributeValue(property, "G");
+                    if (getterName) {
+                        [propertyGetters setObject:propertyName forKey:[NSString stringWithUTF8String:getterName]];
+                        free(getterName);
                     } else {
-                        NSString *selectorString = [propertyName stringByReplacingCharactersInRange:NSMakeRange(0, 1)
-                                                                                         withString:[[propertyName substringToIndex:1] uppercaseString]];
-                        selectorString = [NSString stringWithFormat:@"set%@:", selectorString];
-                        [propertySetters setObject:propertyName forKey:selectorString];
+                        [propertyGetters setObject:propertyName forKey:propertyName];
                     }
-                }
-                
-                // Type
-                char *type = property_copyAttributeValue(property, "T");
-                if (type) {
-                    [propertyTypes setObject:[NSString stringWithUTF8String:type] forKey:propertyName];
-                    free(type);
+                    
+                    // Check if the property is read-only
+                    char *readonly = property_copyAttributeValue(property, "R");
+                    if (readonly) {
+                        free(readonly);
+                    } else {
+                        
+                        // Get the selector for the setter
+                        char *setterName = property_copyAttributeValue(property, "S");
+                        if (setterName) {
+                            [propertySetters setObject:propertyName forKey:[NSString stringWithUTF8String:setterName]];
+                            free(setterName);
+                        } else {
+                            NSString *selectorString = [propertyName stringByReplacingCharactersInRange:NSMakeRange(0, 1)
+                                                                                             withString:[[propertyName substringToIndex:1] uppercaseString]];
+                            selectorString = [NSString stringWithFormat:@"set%@:", selectorString];
+                            [propertySetters setObject:propertyName forKey:selectorString];
+                        }
+                    }
+                    
+                    // Get the type encoding of the property
+                    char *type = property_copyAttributeValue(property, "T");
+                    if (type) {
+                        [propertyTypes setObject:[NSString stringWithUTF8String:type] forKey:propertyName];
+                        free(type);
+                    }
+                    
                 }
             }
             free(properties);

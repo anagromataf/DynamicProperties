@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F639EE6117436AE50039AEA7 /* DPSubTestObject.m in Sources */ = {isa = PBXBuildFile; fileRef = F639EE6017436AE50039AEA7 /* DPSubTestObject.m */; };
 		F6BF95AB1742CABD005CDC08 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6BF95AA1742CABD005CDC08 /* Cocoa.framework */; };
 		F6BF95B51742CABD005CDC08 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F6BF95B31742CABD005CDC08 /* InfoPlist.strings */; };
 		F6BF95C11742CABD005CDC08 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6BF95C01742CABD005CDC08 /* SenTestingKit.framework */; };
@@ -30,6 +31,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F639EE5F17436AE50039AEA7 /* DPSubTestObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPSubTestObject.h; sourceTree = "<group>"; };
+		F639EE6017436AE50039AEA7 /* DPSubTestObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPSubTestObject.m; sourceTree = "<group>"; };
 		F6BF95A71742CABD005CDC08 /* DynamicProperties.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DynamicProperties.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6BF95AA1742CABD005CDC08 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		F6BF95AD1742CABD005CDC08 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -136,6 +139,8 @@
 			children = (
 				F6BF95DB1742E3CF005CDC08 /* DPTestObject.h */,
 				F6BF95DC1742E3CF005CDC08 /* DPTestObject.m */,
+				F639EE5F17436AE50039AEA7 /* DPSubTestObject.h */,
+				F639EE6017436AE50039AEA7 /* DPSubTestObject.m */,
 				F6BF95CC1742CABD005CDC08 /* DynamicPropertiesTests.h */,
 				F6BF95CD1742CABD005CDC08 /* DynamicPropertiesTests.m */,
 				F6BF95C71742CABD005CDC08 /* Supporting Files */,
@@ -281,6 +286,7 @@
 			files = (
 				F6BF95CE1742CABD005CDC08 /* DynamicPropertiesTests.m in Sources */,
 				F6BF95DD1742E3CF005CDC08 /* DPTestObject.m in Sources */,
+				F639EE6117436AE50039AEA7 /* DPSubTestObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -448,6 +454,7 @@
 				F6BF95D31742CABD005CDC08 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F6BF95D41742CABD005CDC08 /* Build configuration list for PBXNativeTarget "DynamicPropertiesTests" */ = {
 			isa = XCConfigurationList;
@@ -456,6 +463,7 @@
 				F6BF95D61742CABD005CDC08 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

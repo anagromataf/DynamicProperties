@@ -7,6 +7,7 @@
 //
 
 #import "DPTestObject.h"
+#import "DPSubTestObject.h"
 
 #import "DynamicPropertiesTests.h"
 
@@ -14,7 +15,7 @@
 
 - (void)testDynamicProperties
 {
-    DPTestObject *object = [[DPTestObject alloc] init];
+    DPSubTestObject *object = [[DPSubTestObject alloc] init];
     
     STAssertNil(object.name, nil);
     
@@ -29,6 +30,10 @@
     [object.values setObject:@"Bar" forKey:@"name"];
     STAssertNotNil(object.name, nil);
     STAssertEqualObjects(object.name, @"Bar", nil);
+    
+    object.timestamp = [NSDate date];
+    STAssertNotNil(object.timestamp, nil);
+    STAssertEqualObjects(object.timestamp, [object.values objectForKey:@"timestamp"], nil);
 }
 
 @end

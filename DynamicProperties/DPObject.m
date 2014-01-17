@@ -15,7 +15,7 @@
 @interface DPObject ()
 @property (nonatomic, readonly) NSDictionary *propertyGetters;
 @property (nonatomic, readonly) NSDictionary *propertySetters;
-@property (nonatomic, readonly) NSDictionary *propertyTypes;
+@property (nonatomic, readonly) NSDictionary *propertyDeclarations;
 @end
 
 @implementation DPObject
@@ -27,7 +27,7 @@
         
         NSMutableDictionary *propertyGetters = [[NSMutableDictionary alloc] init];
         NSMutableDictionary *propertySetters = [[NSMutableDictionary alloc] init];
-        NSMutableDictionary *propertyTypes   = [[NSMutableDictionary alloc] init];
+        NSMutableDictionary *propertyDeclarations   = [[NSMutableDictionary alloc] init];
         
         Class _class = [self class];
         while (_class != [NSObject class]) {
@@ -43,15 +43,11 @@
                     free(dynamic);
                     
                     DPObjectProperty *op = [DPObjectProperty propertyWithDeclaration:property];
-                    
-                    [propertyTypes setObject:op.encoding forKey:op.name];
-                    
+                    [propertyDeclarations setObject:op forKey:op.name];
                     [propertyGetters setObject:op.name forKey:NSStringFromSelector(op.getterSelector)];
-                    
                     if (!op.readonly) {
                         [propertySetters setObject:op.name forKey:NSStringFromSelector(op.setterSelector)];
                     }
-                    
                 }
             }
             free(properties);
@@ -59,9 +55,9 @@
             _class = [_class superclass];
         }
         
-        _propertyGetters = propertyGetters;
-        _propertySetters = propertySetters;
-        _propertyTypes   = propertyTypes;
+        _propertyGetters        = propertyGetters;
+        _propertySetters        = propertySetters;
+        _propertyDeclarations   = propertyDeclarations;
         
         _values = [[NSMutableDictionary alloc] init];
     }
@@ -84,7 +80,7 @@
 
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key
 {
-    if ([[self.propertyTypes allKeys] containsObject:key]) {
+    if ([[self.propertyDeclarations allKeys] containsObject:key]) {
         [self setDynamicValue:value forKey:key];
     } else {
         [super setValue:value forKey:key];
@@ -93,7 +89,7 @@
 
 - (id)valueForUndefinedKey:(NSString *)key
 {
-    if ([[self.propertyTypes allKeys] containsObject:key]) {
+    if ([[self.propertyDeclarations allKeys] containsObject:key]) {
         return [self dynamicValueForKey:key];
     } else {
         return [super valueForUndefinedKey:key];
@@ -108,7 +104,8 @@
     // Getter
     propertyName = [self.propertyGetters objectForKey:selectorAsString];
     if (propertyName) {
-        NSString *propertyType = [self.propertyTypes objectForKey:propertyName];
+        DPObjectProperty *property = [self.propertyDeclarations objectForKey:propertyName];
+        NSString *propertyType = property.encoding;
         return [NSMethodSignature signatureWithObjCTypes:
                 [[NSString stringWithFormat:@"%@@:", propertyType] UTF8String]];
     }
@@ -116,7 +113,8 @@
     // Setter
     propertyName = [self.propertySetters objectForKey:selectorAsString];
     if (propertyName) {
-        NSString *propertyType = [self.propertyTypes objectForKey:propertyName];
+        DPObjectProperty *property = [self.propertyDeclarations objectForKey:propertyName];
+        NSString *propertyType = property.encoding;
         return [NSMethodSignature signatureWithObjCTypes:
                 [[NSString stringWithFormat:@"v@:%@", propertyType] UTF8String]];
     }
@@ -132,7 +130,8 @@
     // Getter
     propertyName = [self.propertyGetters objectForKey:selectorAsString];
     if (propertyName) {
-        NSString *propertyType = [self.propertyTypes objectForKey:propertyName];
+        DPObjectProperty *property = [self.propertyDeclarations objectForKey:propertyName];
+        NSString *propertyType = property.encoding;
     
         NSAssert([propertyType hasPrefix:@"@"], @"Properties with type %@ are not supported.", propertyType);
         
@@ -147,7 +146,8 @@
     // Setter
     propertyName = [self.propertySetters objectForKey:selectorAsString];
     if (propertyName) {
-        NSString *propertyType = [self.propertyTypes objectForKey:propertyName];
+        DPObjectProperty *property = [self.propertyDeclarations objectForKey:propertyName];
+        NSString *propertyType = property.encoding;
         
         NSAssert([propertyType hasPrefix:@"@"], @"Properties with type %@ are not supported.", propertyType);
         

@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		F639EE6117436AE50039AEA7 /* DPSubTestObject.m in Sources */ = {isa = PBXBuildFile; fileRef = F639EE6017436AE50039AEA7 /* DPSubTestObject.m */; };
+		F6A6D08A18899B40004BB602 /* DPObjectProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = F6A6D08818899B40004BB602 /* DPObjectProperty.h */; };
+		F6A6D08B18899B40004BB602 /* DPObjectProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = F6A6D08918899B40004BB602 /* DPObjectProperty.m */; };
 		F6BF95AB1742CABD005CDC08 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6BF95AA1742CABD005CDC08 /* Cocoa.framework */; };
 		F6BF95B51742CABD005CDC08 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F6BF95B31742CABD005CDC08 /* InfoPlist.strings */; };
 		F6BF95C11742CABD005CDC08 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6BF95C01742CABD005CDC08 /* SenTestingKit.framework */; };
@@ -33,6 +35,8 @@
 /* Begin PBXFileReference section */
 		F639EE5F17436AE50039AEA7 /* DPSubTestObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPSubTestObject.h; sourceTree = "<group>"; };
 		F639EE6017436AE50039AEA7 /* DPSubTestObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPSubTestObject.m; sourceTree = "<group>"; };
+		F6A6D08818899B40004BB602 /* DPObjectProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPObjectProperty.h; sourceTree = "<group>"; };
+		F6A6D08918899B40004BB602 /* DPObjectProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPObjectProperty.m; sourceTree = "<group>"; };
 		F6BF95A71742CABD005CDC08 /* DynamicProperties.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DynamicProperties.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6BF95AA1742CABD005CDC08 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		F6BF95AD1742CABD005CDC08 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -117,6 +121,8 @@
 		F6BF95B01742CABD005CDC08 /* DynamicProperties */ = {
 			isa = PBXGroup;
 			children = (
+				F6A6D08818899B40004BB602 /* DPObjectProperty.h */,
+				F6A6D08918899B40004BB602 /* DPObjectProperty.m */,
 				F6BF95D71742CADD005CDC08 /* DPObject.h */,
 				F6BF95D81742CADD005CDC08 /* DPObject.m */,
 				F6BF95B11742CABD005CDC08 /* Supporting Files */,
@@ -164,6 +170,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F6A6D08A18899B40004BB602 /* DPObjectProperty.h in Headers */,
 				F6BF95D91742CADD005CDC08 /* DPObject.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -277,6 +284,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F6BF95DA1742CADD005CDC08 /* DPObject.m in Sources */,
+				F6A6D08B18899B40004BB602 /* DPObjectProperty.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

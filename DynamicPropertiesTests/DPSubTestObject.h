@@ -11,5 +11,6 @@
 @interface DPSubTestObject : DPTestObject
 
 @property (nonatomic, readwrite) NSDate *timestamp;
+@property (nonatomic, copy ,readwrite, getter=myOtherTimestamp, setter=setMyOtherTimestamp:) NSDate *otherTimestamp;
 
 @end

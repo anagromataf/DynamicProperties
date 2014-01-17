@@ -11,5 +11,6 @@
 @implementation DPSubTestObject
 
 @dynamic timestamp;
+@dynamic otherTimestamp;
 
 @end

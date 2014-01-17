@@ -8,6 +8,8 @@
 
 #import <objc/runtime.h>
 
+#import "DPObjectProperty.h"
+
 #import "DPObject.h"
 
 @interface DPObject ()
@@ -40,42 +42,14 @@
                 if (dynamic) {
                     free(dynamic);
                     
-                    // Get the name of the property
-                    NSString *propertyName = [NSString stringWithUTF8String:property_getName(property)];
+                    DPObjectProperty *op = [DPObjectProperty propertyWithDeclaration:property];
                     
-                    // Get the selector for the getter
-                    char *getterName = property_copyAttributeValue(property, "G");
-                    if (getterName) {
-                        [propertyGetters setObject:propertyName forKey:[NSString stringWithUTF8String:getterName]];
-                        free(getterName);
-                    } else {
-                        [propertyGetters setObject:propertyName forKey:propertyName];
-                    }
+                    [propertyTypes setObject:op.encoding forKey:op.name];
                     
-                    // Check if the property is read-only
-                    char *readonly = property_copyAttributeValue(property, "R");
-                    if (readonly) {
-                        free(readonly);
-                    } else {
-                        
-                        // Get the selector for the setter
-                        char *setterName = property_copyAttributeValue(property, "S");
-                        if (setterName) {
-                            [propertySetters setObject:propertyName forKey:[NSString stringWithUTF8String:setterName]];
-                            free(setterName);
-                        } else {
-                            NSString *selectorString = [propertyName stringByReplacingCharactersInRange:NSMakeRange(0, 1)
-                                                                                             withString:[[propertyName substringToIndex:1] uppercaseString]];
-                            selectorString = [NSString stringWithFormat:@"set%@:", selectorString];
-                            [propertySetters setObject:propertyName forKey:selectorString];
-                        }
-                    }
+                    [propertyGetters setObject:op.name forKey:NSStringFromSelector(op.getterSelector)];
                     
-                    // Get the type encoding of the property
-                    char *type = property_copyAttributeValue(property, "T");
-                    if (type) {
-                        [propertyTypes setObject:[NSString stringWithUTF8String:type] forKey:propertyName];
-                        free(type);
+                    if (!op.readonly) {
+                        [propertySetters setObject:op.name forKey:NSStringFromSelector(op.setterSelector)];
                     }
                     
                 }

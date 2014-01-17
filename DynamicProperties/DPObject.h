@@ -11,6 +11,7 @@
 @interface DPObject : NSObject
 
 @property (nonatomic, readonly) NSMutableDictionary *values;
+
 - (id)dynamicValueForKey:(NSString *)key;
 - (void)setDynamicValue:(id)value forKey:(NSString *)key;
 

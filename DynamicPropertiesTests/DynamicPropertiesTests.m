@@ -34,6 +34,10 @@
     object.timestamp = [NSDate date];
     STAssertNotNil(object.timestamp, nil);
     STAssertEqualObjects(object.timestamp, [object.values objectForKey:@"timestamp"], nil);
+    
+    [object setValue:@"xyz" forKey:@"name"];
+    STAssertEqualObjects(object.name, @"xyz",  nil);
+    STAssertEqualObjects([object valueForKey:@"name"], @"xyz",  nil);
 }
 
 @end

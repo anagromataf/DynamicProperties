@@ -108,6 +108,24 @@
     }
 }
 
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key
+{
+    if ([[self.propertyTypes allKeys] containsObject:key]) {
+        [self setDynamicValue:value forKey:key];
+    } else {
+        [super setValue:value forKey:key];
+    }
+}
+
+- (id)valueForUndefinedKey:(NSString *)key
+{
+    if ([[self.propertyTypes allKeys] containsObject:key]) {
+        return [self dynamicValueForKey:key];
+    } else {
+        return [super valueForUndefinedKey:key];
+    }
+}
+
 - (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector
 {
     NSString *selectorAsString = NSStringFromSelector(aSelector);
